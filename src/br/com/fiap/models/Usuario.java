@@ -5,14 +5,14 @@ public class Usuario {
     private String email;
     private String endereco;
 
-    //Construtor
+    // Construtor
     public Usuario(String nome, String email, String endereco) {
         this.nome = nome;
         this.email = email;
         this.endereco = endereco;
     }
 
-    //Getters e Setters
+    // Getters e setters
     public String getNome() {
         return nome;
     }
@@ -35,5 +35,10 @@ public class Usuario {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    // Método para exibir informações do usuário
+    public String exibirInformacoes() {
+        return "Usuário: " + nome + ", Email: " + email + ", Endereço: " + endereco;
     }
 }

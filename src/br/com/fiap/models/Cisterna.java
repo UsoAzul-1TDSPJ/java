@@ -2,28 +2,33 @@ package br.com.fiap.models;
 
 import br.com.fiap.enums.NivelCisterna;
 
-
 public class Cisterna {
     private double capacidadeMaxima;
     private double nivelAtual;
     private double alertaMinimo;
     private double alertaMaximo;
 
-    // Construtor
     public Cisterna(double capacidadeMaxima, double alertaMinimo, double alertaMaximo) {
         this.capacidadeMaxima = capacidadeMaxima;
-        this.nivelAtual = capacidadeMaxima;  // Assume que a cisterna começa cheia
+        this.nivelAtual = 0.0;  // Começa vazia
         this.alertaMinimo = alertaMinimo;
         this.alertaMaximo = alertaMaximo;
     }
 
-
-    // Métodos para adicionar e usar água
     public void adicionarAgua(double litros) {
         if (nivelAtual + litros <= capacidadeMaxima) {
             nivelAtual += litros;
         } else {
-            nivelAtual = capacidadeMaxima;  // Não ultrapassa a capacidade
+            nivelAtual = capacidadeMaxima;
+        }
+    }
+
+    // Sobrecarga do método adicionarAgua
+    public void adicionarAgua(double litros, boolean ignorarLimite) {
+        if (ignorarLimite) {
+            nivelAtual += litros;
+        } else {
+            adicionarAgua(litros);
         }
     }
 
@@ -31,11 +36,10 @@ public class Cisterna {
         if (nivelAtual - litros >= 0) {
             nivelAtual -= litros;
         } else {
-            nivelAtual = 0;  // Não permite usar mais água do que tem
+            nivelAtual = 0;
         }
     }
 
-    // Método para verificar alertas
     public String verificarAlertas() {
         if (nivelAtual <= alertaMinimo) {
             return "Alerta: Nível de água muito baixo!";
@@ -46,24 +50,22 @@ public class Cisterna {
         }
     }
 
-    // Método para calcular a economia com base no nível de água
     public double calcularEconomia() {
-        // Por exemplo, a economia é uma porcentagem da capacidade máxima da cisterna
-        return capacidadeMaxima * 0.30;  // 30% da capacidade é reutilizada
+        return capacidadeMaxima * 0.30; // 30% da capacidade é economizada, exemplo
     }
 
-    // Método para obter o nível da cisterna com base no valor atual
     public NivelCisterna getNivelCisterna() {
         if (nivelAtual <= alertaMinimo) {
-            return NivelCisterna.NORMAL;  // Nível está normal
+            return NivelCisterna.ABAIXO_DO_MINIMO;
         } else if (nivelAtual >= alertaMaximo) {
-            return NivelCisterna.ACIMA_DO_MAXIMO;  // Nível está acima do máximo
+            return NivelCisterna.ACIMA_DO_MAXIMO;
         } else {
-            return NivelCisterna.ABAIXO_DO_MAXIMO;  // Nível está abaixo do máximo
+            return NivelCisterna.NORMAL;
         }
     }
 
-    //Getters e Setters
+    // Getters e Setters
+
     public double getCapacidadeMaxima() {
         return capacidadeMaxima;
     }

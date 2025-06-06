@@ -4,6 +4,14 @@ public class UsuarioResidencial extends Usuario {
     private int numeroMoradores;
     private Cisterna cisterna;
 
+    // Construtor
+    public UsuarioResidencial(String nome, String email, String endereco, int numeroMoradores, Cisterna cisterna) {
+        super(nome, email, endereco);
+        this.numeroMoradores = numeroMoradores;
+        this.cisterna = cisterna;
+    }
+
+    // Getters e Setters
     public int getNumeroMoradores() {
         return numeroMoradores;
     }
@@ -12,14 +20,6 @@ public class UsuarioResidencial extends Usuario {
         this.numeroMoradores = numeroMoradores;
     }
 
-    // Construtor
-    public UsuarioResidencial(String nome, String email, String endereco, int numeroMoradores, Cisterna cisterna) {
-        super(nome, email, endereco);
-        this.numeroMoradores = numeroMoradores;
-        this.cisterna = cisterna;
-    }
-
-    //Getters e Setters
     public Cisterna getCisterna() {
         return cisterna;
     }
@@ -28,21 +28,22 @@ public class UsuarioResidencial extends Usuario {
         this.cisterna = cisterna;
     }
 
+    // Sobrescrita do método exibirInformacoes()
+    @Override
+    public String exibirInformacoes() {
+        return super.exibirInformacoes() + ", Nº de moradores: " + numeroMoradores;
+    }
+
     // Método para calcular o consumo médio de água
     public double calcularConsumoMedio() {
-        // Consumo médio por pessoa (exemplo: 150 litros/dia)
-        double consumoPorPessoa = 150;
-        // Consumo total baseado no número de moradores
+        double consumoPorPessoa = 150; // litros/dia (exemplo)
         double consumoTotal = consumoPorPessoa * numeroMoradores;
 
-        // Verifica se o usuário tem cisterna (cisterna != null)
         if (cisterna != null) {
-            // Se o usuário tem cisterna, calcula a economia
             double economiaCisterna = cisterna.calcularEconomia();
-            // Subtrai a economia da cisterna do consumo total
             consumoTotal -= economiaCisterna;
         }
 
-        return consumoTotal;  // Retorna o consumo total após a economia da cisterna, se houver
+        return consumoTotal;
     }
 }
