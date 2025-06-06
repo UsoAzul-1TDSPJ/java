@@ -29,8 +29,18 @@ public class Main {
         System.out.print("Informe o nome do usuário residencial: ");
         String nome = scanner.nextLine();
 
-        System.out.print("Informe o email do usuário: ");
-        String email = scanner.nextLine();
+        // Email com validação
+        String email;
+        while (true) {
+            System.out.print("Informe o email do usuário: ");
+            email = scanner.nextLine();
+
+            if (email.contains("@")) {
+                break;
+            } else {
+                System.out.println("Email inválido. Deve conter '@'. Tente novamente.");
+            }
+        }
 
         System.out.print("Informe o endereço: ");
         String endereco = scanner.nextLine();

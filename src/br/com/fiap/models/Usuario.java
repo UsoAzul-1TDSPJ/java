@@ -5,10 +5,10 @@ public class Usuario {
     private String email;
     private String endereco;
 
-    // Construtor
+    // Construtor com validação do e-mail
     public Usuario(String nome, String email, String endereco) {
         this.nome = nome;
-        this.email = email;
+        setEmail(email); // usa o setter para validar o e-mail
         this.endereco = endereco;
     }
 
@@ -26,7 +26,11 @@ public class Usuario {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (email != null && email.contains("@")) {
+            this.email = email;
+        } else {
+            throw new IllegalArgumentException("Email inválido. Deve conter '@'.");
+        }
     }
 
     public String getEndereco() {
